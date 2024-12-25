@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: qrbhojan
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qrbhojan
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: update
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 3600000 # 1 hour
+
+app:
+  filepath:
+    windows: D:\\qrbhojan\\
+    linux: /home/user/qrbhojan/
+    mac: /Users/qrbhojan/
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v1/api-docs
+
+  swagger-ui:
+    path: /v1/swagger.html
