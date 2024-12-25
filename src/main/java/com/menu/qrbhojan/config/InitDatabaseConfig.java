@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -40,11 +41,17 @@ public class InitDatabaseConfig {
             user.setFullName("QR Bhojan");
             user.setEmail("qrbhojan@gmail.com");
             user.setPhone("9841234567");
+            user.setAddress("Kathmandu, Nepal");
             user.setPassword(new BCryptPasswordEncoder().encode("qrbhojan@123"));
             Role role = roleRepository.findByName(Role.ROLE_SUPER_ADMIN).orElseThrow(
                     () -> new RuntimeException(SystemMessage.ROLE_NOT_FOUND)
             );
-            user.setRole(role);
+            Role role1 = roleRepository.findByName(Role.ROLE_ADMIN).orElseThrow(
+                    () -> new RuntimeException(SystemMessage.ROLE_NOT_FOUND)
+            );
+            user.setRole(List.of(role, role1));
+            user.setIsActive(true);
+            user.setIsDeleted(false);
             userRepository.save(user);
             log.info("Super admin role user created");
         }

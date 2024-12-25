@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LoggedInUser {
@@ -22,7 +24,7 @@ public class LoggedInUser {
         );
     }
 
-    public Role getLoggedInUserRole() {
+    public List<Role> getLoggedInUserRole() {
         Users user = getLoggedInUser();
         return user.getRole();
     }

@@ -11,6 +11,8 @@ public class SystemMessage {
     public static final String USER_DELETED = "User deleted successfully";
     public static final String USER_DEACTIVATED = "User deactivated successfully";
     public static final String USER_FETCHED = "User fetched successfully";
+    public static final String USER_DEACTIVATED_OR_LOGGED_OUT_MSG = "User is deactivated or Logged Out!";
+    public static final String USER_LOGGED_OUT_MSG = "User Logged Out Successfully!";
 
     // Role Messages
     public static final String ROLE_NOT_FOUND = "Role not found";
