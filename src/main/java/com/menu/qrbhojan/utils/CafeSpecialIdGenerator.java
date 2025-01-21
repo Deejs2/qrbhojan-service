@@ -14,7 +14,7 @@ import java.util.Base64;
 @Slf4j
 public class CafeSpecialIdGenerator {
     private static final String ALGORITHM = "AES";
-    private static final String SECRET_KEY = "dhirajpasangutsabchitra"; // 16-char secret key
+    private static final String SECRET_KEY = "qrbhojan@1234567"; // 16-char secret key
 
     public static String encrypt(String data) {
         try{

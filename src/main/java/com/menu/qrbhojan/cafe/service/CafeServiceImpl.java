@@ -43,8 +43,9 @@ public class CafeServiceImpl implements CafeService{
         }
         cafe.setCafeContact(cafeRequest.getCafeContact());
         cafe.setCafeEmail(cafeRequest.getCafeEmail());
-        cafe.setCafeSpecialId(cafeSpecialIdGenerator.generateCafeSpecialId(cafeRequest.getCafeName(), cafe.getCafeId(),user.getFullName()));
-        log.info("CafeSpecialId: {}", cafeSpecialIdGenerator.decrypt(cafe.getCafeSpecialId()));
+        String cypherText = cafeSpecialIdGenerator.generateCafeSpecialId(cafeRequest.getCafeName(), cafe.getCafeId(),user.getFullName());
+        cafe.setCafeSpecialId(cypherText);
+        log.info("CafeSpecialId: {}", cafeSpecialIdGenerator.decrypt(cypherText));
         cafe.setUserId(user.getId());
         cafeRepository.save(cafe);
         return new CafeResponse(cafe, user);

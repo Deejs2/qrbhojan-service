@@ -1,5 +1,6 @@
 package com.menu.qrbhojan.utils;
 
+import com.menu.qrbhojan.cafe.entity.Cafe;
 import com.menu.qrbhojan.role.entity.Role;
 import com.menu.qrbhojan.user.entity.Users;
 import com.menu.qrbhojan.user.repository.UserRepository;
@@ -27,5 +28,10 @@ public class LoggedInUser {
     public List<Role> getLoggedInUserRole() {
         Users user = getLoggedInUser();
         return user.getRole();
+    }
+
+    public Cafe getLoggedInCafe(){
+        Users user = getLoggedInUser();
+        return user.getCafe();
     }
 }
