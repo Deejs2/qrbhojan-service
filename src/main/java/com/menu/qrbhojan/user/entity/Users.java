@@ -1,5 +1,6 @@
 package com.menu.qrbhojan.user.entity;
 
+import com.menu.qrbhojan.cafe.entity.Cafe;
 import com.menu.qrbhojan.role.entity.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,4 +37,7 @@ public class Users {
     private List<Role> role;
     private Boolean isActive = true;
     private Boolean isDeleted = false;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Cafe> cafes;
 }

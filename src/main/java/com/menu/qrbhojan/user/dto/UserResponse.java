@@ -13,7 +13,6 @@ public class UserResponse {
     private Long id;
     private String fullName;
     private String email;
-    private String username;
     private List<String> role;
     private String address;
     private String phone;
@@ -23,9 +22,7 @@ public class UserResponse {
     public UserResponse(Users user) {
         this.id = user.getId();
         this.fullName = user.getFullName();
-        this.email = user.getEmail();
-        this.username = user.getUsername();
-        this.role = user.getRole().stream().map(Role::getName).toList();
+        this.email = user.getEmail();        this.role = user.getRole().stream().map(Role::getName).toList();
         this.address = user.getAddress();
         this.phone = user.getPhone();
         this.profileImage = user.getProfileImage();
