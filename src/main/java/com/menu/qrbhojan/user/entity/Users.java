@@ -24,7 +24,7 @@ public class Users {
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String phone;
     private String address;
 
@@ -37,7 +37,8 @@ public class Users {
     private List<Role> role;
     private Boolean isActive = true;
     private Boolean isDeleted = false;
+    private Boolean isVerified = false;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Cafe> cafes;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Cafe cafe;
 }
