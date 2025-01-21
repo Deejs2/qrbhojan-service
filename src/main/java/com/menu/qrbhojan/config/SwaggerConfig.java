@@ -25,7 +25,7 @@ public class SwaggerConfig {
                         ("Bearer Authentication", createAPIKeyScheme()))
                 .info(new Info().title("QRBhojan REST API")
                         .description("Some custom description of API.")
-                        .version("1.0").contact(new Contact().name("CMS")
+                        .version("1.0").contact(new Contact().name("QRBhojan")
                                 .email( "qrbhojan@gmail.com").url("https://www.dhirajjirel.com.np"))
                         .license(new License().name("License of API")
                                 .url("API license URL")));
