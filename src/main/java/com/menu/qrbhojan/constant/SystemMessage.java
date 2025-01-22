@@ -1,6 +1,7 @@
 package com.menu.qrbhojan.constant;
 
 public class SystemMessage {
+
     private SystemMessage() {}
 
     // User Messages
@@ -16,4 +17,8 @@ public class SystemMessage {
 
     // Role Messages
     public static final String ROLE_NOT_FOUND = "Role not found";
+
+    public static final String MENU_CATEGORY_CREATED = "Menu Category created successfully";
+    public static final String MENU_CATEGORY_FETCHED = "Menu Category fetched successfully";
+    public static final String MENU_CATEGORY_DELETED = "Menu Category deleted successfully";
 }
