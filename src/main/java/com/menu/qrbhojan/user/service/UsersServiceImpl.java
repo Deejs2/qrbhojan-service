@@ -4,10 +4,7 @@ import com.menu.qrbhojan.common.service.FileHandler;
 import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.role.entity.Role;
 import com.menu.qrbhojan.role.repository.RoleRepository;
-import com.menu.qrbhojan.user.dto.UserRequest;
-import com.menu.qrbhojan.user.dto.UserResponse;
-import com.menu.qrbhojan.user.dto.UserUpdateRequest;
-import com.menu.qrbhojan.user.dto.UserUpdateResponse;
+import com.menu.qrbhojan.user.dto.*;
 import com.menu.qrbhojan.user.entity.Users;
 import com.menu.qrbhojan.user.repository.UserRepository;
 import com.menu.qrbhojan.utils.LoggedInUser;
@@ -36,7 +33,6 @@ public class UsersServiceImpl implements UsersService {
         Users user = new Users();
         user.setFullName(userRequest.getFirstName() + " " + userRequest.getLastName());
         user.setEmail(userRequest.getEmail());
-        user.setUsername(userRequest.getUsername());
         user.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
         Role role = roleRepository.findByName(userRequest.getRole()).orElseThrow(
                 () -> new EntityNotFoundException(SystemMessage.ROLE_NOT_FOUND)
@@ -72,7 +68,6 @@ public class UsersServiceImpl implements UsersService {
         );
         user.setFullName(userUpdateRequest.getFirstName() + " " + userUpdateRequest.getLastName());
         user.setEmail(userUpdateRequest.getEmail());
-        user.setUsername(userUpdateRequest.getUsername());
         user.setAddress(userUpdateRequest.getAddress());
         user.setPhone(userUpdateRequest.getPhone());
         if(userUpdateRequest.getProfileImage() != null) {

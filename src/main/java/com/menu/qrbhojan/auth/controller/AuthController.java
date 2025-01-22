@@ -2,6 +2,8 @@ package com.menu.qrbhojan.auth.controller;
 
 import com.menu.qrbhojan.auth.dto.AuthRequest;
 import com.menu.qrbhojan.auth.dto.AuthResponse;
+import com.menu.qrbhojan.auth.dto.UserRegisterRequest;
+import com.menu.qrbhojan.auth.service.AuthService;
 import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.global.BaseController;
 import com.menu.qrbhojan.global.GlobalApiResponse;
@@ -29,6 +31,7 @@ public class AuthController extends BaseController {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final UserRepository userRepository;
     private final LoggedInUser loggedInUser;
+    private final AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<GlobalApiResponse> createToken(@RequestBody AuthRequest authRequest) {
@@ -59,5 +62,10 @@ public class AuthController extends BaseController {
         user.setIsActive(false);
         userRepository.save(user);
         return successResponse(SystemMessage.USER_LOGGED_OUT_MSG);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<GlobalApiResponse> registerUser(@RequestBody UserRegisterRequest userRegisterRequest) {
+        return successResponse(authService.registerUser(userRegisterRequest), SystemMessage.USER_REGISTERED);
     }
 }
