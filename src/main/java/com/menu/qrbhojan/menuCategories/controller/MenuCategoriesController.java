@@ -4,6 +4,7 @@ import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.global.BaseController;
 import com.menu.qrbhojan.global.GlobalApiResponse;
 import com.menu.qrbhojan.menuCategories.dto.request.MenuCategoryRequest;
+import com.menu.qrbhojan.menuCategories.dto.request.UpdateMenuCategoryRequest;
 import com.menu.qrbhojan.menuCategories.service.MenuCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -29,5 +30,10 @@ public class MenuCategoriesController extends BaseController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<GlobalApiResponse> deleteMenuCategory(@PathVariable Long id) {
         return successResponse(menuCategoryService.deleteMenuCategory(id), SystemMessage.MENU_CATEGORY_DELETED);
+    }
+
+    @PutMapping("/update/{categoryId}")
+    public ResponseEntity<GlobalApiResponse> updateMenuCategory(Long categoryId, @ModelAttribute UpdateMenuCategoryRequest menuCategoryRequest) {
+        return successResponse(menuCategoryService.updateMenuCategory(categoryId,menuCategoryRequest), SystemMessage.MENU_CATEGORY_UPDATED);
     }
 }

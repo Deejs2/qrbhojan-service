@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface MenuCategoryRepository extends JpaRepository<MenuCategories, Long> {
     Page<MenuCategories> findAllByCafeSpecialId(String cafeSpecialId, Pageable pageable);
 
+    MenuCategories findByCafeSpecialIdAndCategoryId(String cafeSpecialId, Long id);
+
 }
