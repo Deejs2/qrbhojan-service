@@ -1,4 +1,4 @@
-package com.menu.qrbhojan.socialsite;
+package com.menu.qrbhojan.socialsite.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -25,4 +25,21 @@ public class SystemMessage {
     public static final String CAFE_UPDATED = "Cafe updated successfully";
     public static final String CAFE_DELETED = "Cafe deleted successfully";
     public static final String CAFE_FETCHED = "Cafe fetched successfully";
+
+    // Social Icon Messages
+    public static final String SOCIAL_ICON_NOT_FOUND = "Social Icon not found";
+    public static final String SOCIAL_ICON_CREATED = "Social Icon created successfully";
+    public static final String SOCIAL_ICON_DELETED = "Social Icon deleted successfully";
+
+    // Social Icon Link Messages
+    public static final String SOCIAL_ICON_LINK_NOT_FOUND = "Social Icon Link not found";
+    public static final String SOCIAL_ICON_LINK_CREATED = "Social Icon Link created successfully";
+    public static final String SOCIAL_ICON_LINK_DELETED = "Social Icon Link deleted successfully";
+
+    // Cafe Website Messages
+    public static final String CAFE_WEBSITE_NOT_FOUND = "Cafe Website not found";
+    public static final String CAFE_WEBSITE_CREATED = "Cafe Website created successfully";
+    public static final String CAFE_WEBSITE_FETCHED = "Cafe Website fetched successfully";
+    public static final String CAFE_WEBSITE_UPDATED = "Cafe Website updated successfully";
+    public static final String CAFE_WEBSITE_DELETED = "Cafe Website deleted successfully";
 }

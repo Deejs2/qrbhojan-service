@@ -24,4 +24,5 @@ public class Cafe {
     private String cafeEmail;
     private String cafeSpecialId;
     private Long userId;
+    private String cafeOpeningHours;
 }
