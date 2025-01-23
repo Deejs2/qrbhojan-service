@@ -26,6 +26,11 @@ public class SystemMessage {
     public static final String CAFE_DELETED = "Cafe deleted successfully";
     public static final String CAFE_FETCHED = "Cafe fetched successfully";
 
+    public static final String MENU_CATEGORY_CREATED = "Menu Category created successfully";
+    public static final String MENU_CATEGORY_FETCHED = "Menu Category fetched successfully";
+    public static final String MENU_CATEGORY_DELETED = "Menu Category deleted successfully";
+    public static final String MENU_CATEGORY_UPDATED = "Menu Category updated successfully";
+
     // Social Icon Messages
     public static final String SOCIAL_ICON_NOT_FOUND = "Social Icon not found";
     public static final String SOCIAL_ICON_CREATED = "Social Icon created successfully";
