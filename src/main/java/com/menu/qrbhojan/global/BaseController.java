@@ -23,6 +23,17 @@ public class BaseController {
         );
         return ResponseEntity.ok(response);
     }
+
+    public ResponseEntity<GlobalApiResponse> successResponse(Object data, String message, HttpStatus status){
+        GlobalApiResponse response = new GlobalApiResponse(
+                LocalDateTime.now(),
+                message,
+                data,
+                status.name()
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
     public ResponseEntity<GlobalErrorResponse> errorResponse(HttpStatus status, String message, Exception exception) {
         GlobalErrorResponse response = new GlobalErrorResponse(LocalDateTime.now(), message, exception.getMessage(), status.name());
         response.setMessage(message);
