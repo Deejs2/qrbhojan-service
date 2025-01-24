@@ -19,6 +19,7 @@ public class CafeResponse {
     private String cafeContact;
     private String cafeEmail;
     private String cafeSpecialId;
+    private String cafeOpeningHours;
     private String cafeOwner;
 
     public CafeResponse(Cafe cafe, Users user) {
@@ -31,6 +32,7 @@ public class CafeResponse {
         this.cafeContact = cafe.getCafeContact();
         this.cafeEmail = cafe.getCafeEmail();
         this.cafeSpecialId = cafe.getCafeSpecialId();
+        this.cafeOpeningHours = cafe.getCafeOpeningHours();
         this.cafeOwner = user.getFullName();
     }
 

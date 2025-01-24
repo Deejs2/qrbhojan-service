@@ -23,6 +23,7 @@ public class CafeSpecialIdGenerator {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             byte[] encryptedBytes = cipher.doFinal(data.getBytes());
             String base64Encrypted = Base64.getEncoder().encodeToString(encryptedBytes);
+            log.info("Original data: {}", decrypt(base64Encrypted));
             // Ensure the output is 15 characters long
             return adjustLength(base64Encrypted, 15);
         }catch (Exception e){
@@ -31,14 +32,14 @@ public class CafeSpecialIdGenerator {
         }
     }
 
-    public String decrypt(String encryptedData) {
+    public static String decrypt(String encryptedData) {
         try{
             SecretKey secretKey = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
             // Ensure the encrypted data is properly padded back to its original form
-            String paddedData = adjustLength(encryptedData, 24); // Base64 padding
+            String paddedData = adjustLength(encryptedData, 15); // Base64 padding
             byte[] decodedBytes = Base64.getDecoder().decode(paddedData);
             byte[] originalBytes = cipher.doFinal(decodedBytes);
 

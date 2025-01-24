@@ -16,4 +16,5 @@ public class CafeRequest {
     private MultipartFile cafeBanner;
     private String cafeContact;
     private String cafeEmail;
+    private String cafeOpeningHours;
 }

@@ -3,6 +3,8 @@ package com.menu.qrbhojan.config;
 import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.role.entity.Role;
 import com.menu.qrbhojan.role.repository.RoleRepository;
+import com.menu.qrbhojan.socialsite.entity.SocialIcon;
+import com.menu.qrbhojan.socialsite.repository.SocialIconRepository;
 import com.menu.qrbhojan.user.entity.Users;
 import com.menu.qrbhojan.user.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
@@ -11,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -20,6 +21,7 @@ import java.util.List;
 public class InitDatabaseConfig {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final SocialIconRepository socialIconRepository;
 
     @PostConstruct
     public void initDatabase() {
@@ -54,5 +56,21 @@ public class InitDatabaseConfig {
             userRepository.save(user);
             log.info("Super admin role user created");
         }
+
+        if(socialIconRepository.findAll().isEmpty()){
+            createSocialIcon("Facebook", "bi bi-facebook");
+            createSocialIcon("Instagram", "bi bi-instagram");
+            createSocialIcon("WhatsApp", "bi bi-whatsapp");
+            createSocialIcon("TikTok", "bi bi-tiktok");
+            createSocialIcon("YouTube", "bi bi-youtube");
+        }
+        
+    }
+
+    private void createSocialIcon(String socialIconName, String socialIconClass){
+        SocialIcon socialIcon = new SocialIcon();
+        socialIcon.setSocialIconName(socialIconName);
+        socialIcon.setSocialIconClass(socialIconClass);
+        socialIconRepository.save(socialIcon);
     }
 }
