@@ -31,7 +31,7 @@ app:
   filepath:
     windows: D:\\qrbhojan\\
     linux: /home/user/qrbhojan/
-    mac: /Users/qrbhojan/
+    mac: /TemplateCustomization/qrbhojan/
 
 springdoc:
   api-docs:
