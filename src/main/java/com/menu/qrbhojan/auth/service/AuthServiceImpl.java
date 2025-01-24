@@ -31,6 +31,7 @@ public class AuthServiceImpl implements AuthService{
         }
         Users user = new Users();
         user.setEmail(userRegisterRequest.getEmail());
+        user.setFullName(userRegisterRequest.getFullName());
         user.setPassword(new BCryptPasswordEncoder().encode(userRegisterRequest.getPassword()));
         Role role = roleRepository.findByName("ROLE_ADMIN").orElseThrow(
                 () -> new EntityNotFoundException(SystemMessage.ROLE_NOT_FOUND)

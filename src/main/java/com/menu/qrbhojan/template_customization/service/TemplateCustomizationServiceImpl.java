@@ -22,14 +22,14 @@ public class TemplateCustomizationServiceImpl implements TemplateCustomizationSe
     public TemplateCustomizationResponse saveTemplateCustomization(TemplateCustomizationRequest templateCustomizationRequest) {
         TemplateCustomization templateCustomization = TemplateCustomization.builder()
                 .customStyles(templateCustomizationRequest.getCustomStyles())
-                .cafeSpecialId(null)
+                .cafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId())
                 .build();
         return new TemplateCustomizationResponse(templateCustomizationRepository.save(templateCustomization));
     }
 
     @Override
     public TemplateCustomizationResponse getTemplateCustomization() {
-        return new TemplateCustomizationResponse(templateCustomizationRepository.findByCafeSpecialId(null)
+        return new TemplateCustomizationResponse(templateCustomizationRepository.findByCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId())
                 .orElseThrow(()-> new EntityNotFoundException("Template customization not found")));
     }
 }

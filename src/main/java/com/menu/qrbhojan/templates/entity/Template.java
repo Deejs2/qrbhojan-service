@@ -24,5 +24,4 @@ public class Template {
 
     private String previewImage;
 
-
 }
