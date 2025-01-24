@@ -1,5 +1,6 @@
 package com.menu.qrbhojan.website.controller;
 
+import com.google.zxing.WriterException;
 import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.global.BaseController;
 import com.menu.qrbhojan.global.GlobalApiResponse;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor

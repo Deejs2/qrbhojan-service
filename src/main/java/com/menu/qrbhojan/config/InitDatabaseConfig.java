@@ -47,10 +47,7 @@ public class InitDatabaseConfig {
             Role role = roleRepository.findByName(Role.ROLE_SUPER_ADMIN).orElseThrow(
                     () -> new RuntimeException(SystemMessage.ROLE_NOT_FOUND)
             );
-            Role role1 = roleRepository.findByName(Role.ROLE_ADMIN).orElseThrow(
-                    () -> new RuntimeException(SystemMessage.ROLE_NOT_FOUND)
-            );
-            user.setRole(List.of(role, role1));
+            user.setRole(List.of(role));
             user.setIsActive(true);
             user.setIsDeleted(false);
             userRepository.save(user);

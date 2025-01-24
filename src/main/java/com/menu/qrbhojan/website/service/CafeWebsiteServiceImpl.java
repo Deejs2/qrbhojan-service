@@ -1,7 +1,9 @@
 package com.menu.qrbhojan.website.service;
 
+import com.google.zxing.WriterException;
 import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.utils.LoggedInUser;
+import com.menu.qrbhojan.utils.QrCodeGenerator;
 import com.menu.qrbhojan.website.dto.CafeWebsiteRequest;
 import com.menu.qrbhojan.website.dto.CafeWebsiteResponse;
 import com.menu.qrbhojan.website.entity.CafeWebsite;
@@ -14,18 +16,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class CafeWebsiteServiceImpl implements CafeWebsiteService{
     private final CafeWebsiteRepository cafeWebsiteRepository;
     private final LoggedInUser loggedInUser;
+    private final QrCodeGenerator qrCodeGenerator;
     @Override
     public CafeWebsiteResponse createCafeWebsite(CafeWebsiteRequest cafeWebsiteRequest) {
         log.info("Creating Cafe Website with Details: {}", cafeWebsiteRequest);
         CafeWebsite cafeWebsite = new CafeWebsite();
         cafeWebsite.setCafeWebsiteUrl(cafeWebsiteRequest.getCafeWebsiteUrl());
+        cafeWebsite.setCafeWebsiteQrCode(qrCodeGenerator.generateQRCodeImage(cafeWebsiteRequest.getCafeWebsiteUrl(), 300, 300));
         cafeWebsite.setCafeWebsiteStatus(WebsiteStatus.valueOf(cafeWebsiteRequest.getCafeWebsiteStatus()));
+        cafeWebsite.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
         cafeWebsiteRepository.save(cafeWebsite);
         return new CafeWebsiteResponse(cafeWebsite);
     }
@@ -53,7 +60,9 @@ public class CafeWebsiteServiceImpl implements CafeWebsiteService{
         CafeWebsite cafeWebsite = cafeWebsiteRepository.findById(cafeWebsiteId)
                 .orElseThrow(() -> new EntityNotFoundException(SystemMessage.CAFE_WEBSITE_NOT_FOUND));
         cafeWebsite.setCafeWebsiteUrl(cafeWebsiteRequest.getCafeWebsiteUrl());
+        cafeWebsite.setCafeWebsiteQrCode(qrCodeGenerator.generateQRCodeImage(cafeWebsiteRequest.getCafeWebsiteUrl(), 300, 300));
         cafeWebsite.setCafeWebsiteStatus(WebsiteStatus.valueOf(cafeWebsiteRequest.getCafeWebsiteStatus()));
+        cafeWebsite.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
         cafeWebsiteRepository.save(cafeWebsite);
         return new CafeWebsiteResponse(cafeWebsite);
     }

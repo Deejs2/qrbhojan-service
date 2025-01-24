@@ -66,8 +66,7 @@ public class UsersServiceImpl implements UsersService {
         Users user = userRepository.findById(userUpdateRequest.getId()).orElseThrow(
                 () -> new EntityNotFoundException(SystemMessage.USER_NOT_FOUND)
         );
-        user.setFullName(userUpdateRequest.getFirstName() + " " + userUpdateRequest.getLastName());
-        user.setEmail(userUpdateRequest.getEmail());
+        user.setFullName(userUpdateRequest.getFullName());
         user.setAddress(userUpdateRequest.getAddress());
         user.setPhone(userUpdateRequest.getPhone());
         if(userUpdateRequest.getProfileImage() != null) {
