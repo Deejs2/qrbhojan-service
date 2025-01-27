@@ -21,34 +21,51 @@ import java.io.IOException;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CafeServiceImpl implements CafeService{
+public class CafeServiceImpl implements CafeService {
     private final CafeRepository cafeRepository;
     private final FileHandler fileHandler;
     private final LoggedInUser loggedInUser;
     private final CafeSpecialIdGenerator cafeSpecialIdGenerator;
     private final UserRepository userRepository;
+
     @Override
     public CafeResponse createCafe(CafeRequest cafeRequest) throws IOException {
         Users user = loggedInUser.getLoggedInUser();
         log.info("Creating cafe");
-        Cafe cafe = new Cafe();
+        Cafe cafe = buildCafeFromRequest(cafeRequest, new Cafe());
+        String cypherText = cafeSpecialIdGenerator.generateCafeSpecialId(cafeRequest.getCafeName(), cafe.getCafeId(), user.getFullName());
+        cafe.setCafeSpecialId(cypherText);
+        cafe.setUserId(user.getId());
+        cafeRepository.save(cafe);
+
+        user.setCafe(cafe);
+        userRepository.save(user);
+        return new CafeResponse(cafe, user);
+    }
+
+    @Override
+    public CafeResponse updateCafe(Long cafeId, CafeRequest cafeRequest) throws IOException {
+        log.info("Updating cafe with id: {}", cafeId);
+        Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(() -> new RuntimeException(SystemMessage.CAFE_NOT_FOUND));
+        buildCafeFromRequest(cafeRequest, cafe);
+        cafeRepository.save(cafe);
+        return new CafeResponse(cafe, loggedInUser.getLoggedInUser());
+    }
+
+    private Cafe buildCafeFromRequest(CafeRequest cafeRequest, Cafe cafe) throws IOException {
         cafe.setCafeName(cafeRequest.getCafeName());
         if (cafeRequest.getCafeLogo() != null) {
             cafe.setCafeLogo(fileHandler.saveMediaFile(cafeRequest.getCafeLogo(), "cafe").getFilePath());
         }
         cafe.setCafeLocation(cafeRequest.getCafeLocation());
         cafe.setCafeDescription(cafeRequest.getCafeDescription());
-        if(cafeRequest.getCafeBanner() != null) {
+        if (cafeRequest.getCafeBanner() != null) {
             cafe.setCafeBanner(fileHandler.saveMediaFile(cafeRequest.getCafeBanner(), "cafe").getFilePath());
         }
         cafe.setCafeContact(cafeRequest.getCafeContact());
         cafe.setCafeEmail(cafeRequest.getCafeEmail());
-        String cypherText = cafeSpecialIdGenerator.generateCafeSpecialId(cafeRequest.getCafeName(), cafe.getCafeId(),user.getFullName());
-        cafe.setCafeSpecialId(cypherText);
         cafe.setCafeOpeningHours(cafeRequest.getCafeOpeningHours());
-        cafe.setUserId(user.getId());
-        cafeRepository.save(cafe);
-        return new CafeResponse(cafe, user);
+        return cafe;
     }
 
     @Override
@@ -66,26 +83,6 @@ public class CafeServiceImpl implements CafeService{
             Users user = userRepository.findById(cafe.getUserId()).orElseThrow(() -> new RuntimeException(SystemMessage.USER_NOT_FOUND));
             return new CafeResponse(cafe, user);
         });
-    }
-
-    @Override
-    public CafeResponse updateCafe(Long cafeId, CafeRequest cafeRequest) throws IOException {
-        log.info("Updating cafe with id: {}", cafeId);
-        Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(() -> new RuntimeException(SystemMessage.CAFE_NOT_FOUND));
-        cafe.setCafeName(cafeRequest.getCafeName());
-        if(cafeRequest.getCafeLogo() != null) {
-            cafe.setCafeLogo(fileHandler.saveMediaFile(cafeRequest.getCafeLogo(), "cafe").getFilePath());
-        }
-        cafe.setCafeLocation(cafeRequest.getCafeLocation());
-        cafe.setCafeDescription(cafeRequest.getCafeDescription());
-        if(cafeRequest.getCafeBanner() != null) {
-            cafe.setCafeBanner(fileHandler.saveMediaFile(cafeRequest.getCafeBanner(), "cafe").getFilePath());
-        }
-        cafe.setCafeContact(cafeRequest.getCafeContact());
-        cafe.setCafeEmail(cafeRequest.getCafeEmail());
-        cafe.setCafeOpeningHours(cafe.getCafeOpeningHours());
-        cafeRepository.save(cafe);
-        return new CafeResponse(cafe, loggedInUser.getLoggedInUser());
     }
 
     @Override
