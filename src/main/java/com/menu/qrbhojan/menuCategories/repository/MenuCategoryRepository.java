@@ -13,4 +13,6 @@ public interface MenuCategoryRepository extends JpaRepository<MenuCategories, Lo
 
     MenuCategories findByCafeSpecialIdAndCategoryId(String cafeSpecialId, Long id);
 
+    MenuCategories findByCategoryIdAndCafeSpecialId(Long id, String cafeSpecialId);
+
 }

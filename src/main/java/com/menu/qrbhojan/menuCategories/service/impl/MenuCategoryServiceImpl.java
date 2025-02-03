@@ -55,13 +55,21 @@ public class MenuCategoryServiceImpl implements MenuCategoryService {
     }
 
     @Override
-    public MenuCategoryResponse updateMenuCategory(Long categoryId,UpdateMenuCategoryRequest menuCategoryRequest) {
-        log.info("Updating menu category request received");
-        MenuCategories menuCategories = menuCategoryRepository.findByCafeSpecialIdAndCategoryId(loggedInUserUtil.getLoggedInCafe().getCafeSpecialId(), categoryId);
-        menuCategories.setCategoryName(menuCategoryRequest.getCategoryName());
-        menuCategories.setCategoryDescription(menuCategoryRequest.getDescription());
+    public MenuCategoryResponse updateMenuCategory(UpdateMenuCategoryRequest updateMenuCategoryRequest) {
+        log.info("Updating menu category request received for categoryId: {}", updateMenuCategoryRequest.getCategoryId());
+
+        MenuCategories menuCategories = menuCategoryRepository.findByCategoryIdAndCafeSpecialId(updateMenuCategoryRequest.getCategoryId(), loggedInUserUtil.getLoggedInCafe().getCafeSpecialId());
+        if (menuCategories == null) {
+            log.error("Menu category with id {} not found", updateMenuCategoryRequest.getCategoryId());
+            throw new RuntimeException("Menu category not found");
+        }
+
+        menuCategories.setCategoryName(updateMenuCategoryRequest.getName());
+        menuCategories.setCategoryDescription(updateMenuCategoryRequest.getDescription());
+
         MenuCategories savedMenuCategories = menuCategoryRepository.save(menuCategories);
-        log.info("Menu Category updated successfully.");
+        log.info("Menu Category updated successfully with id: {}", updateMenuCategoryRequest.getCategoryId());
+
         return new MenuCategoryResponse(savedMenuCategories);
     }
 }

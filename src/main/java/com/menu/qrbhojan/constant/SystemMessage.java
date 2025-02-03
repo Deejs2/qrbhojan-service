@@ -1,6 +1,7 @@
 package com.menu.qrbhojan.constant;
 
 public class SystemMessage {
+
     private SystemMessage() {}
 
     // User Messages
@@ -54,4 +55,10 @@ public class SystemMessage {
     public static final String ANNOUNCEMENT_UPDATED = "Announcement updated successfully";
     public static final String ANNOUNCEMENT_DELETED = "Announcement deleted successfully";
     public static final String ANNOUNCEMENT_FETCHED = "Announcement fetched successfully";
+
+
+    public static final String MENU_CREATED = "Menu created successfully";
+    public static final String MENU_FETCHED = "Menu fetched successfully";
+    public static final String MENU_DELETED = "Menu deleted successfully";
+    public static final String MENU_UPDATED = "Menu updated successfully";
 }
