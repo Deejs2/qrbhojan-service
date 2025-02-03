@@ -32,8 +32,8 @@ public class MenuCategoriesController extends BaseController {
         return successResponse(menuCategoryService.deleteMenuCategory(id), SystemMessage.MENU_CATEGORY_DELETED);
     }
 
-    @PutMapping("/update/{categoryId}")
-    public ResponseEntity<GlobalApiResponse> updateMenuCategory(Long categoryId, @ModelAttribute UpdateMenuCategoryRequest menuCategoryRequest) {
-        return successResponse(menuCategoryService.updateMenuCategory(categoryId,menuCategoryRequest), SystemMessage.MENU_CATEGORY_UPDATED);
+    @PutMapping("/update")
+    public ResponseEntity<GlobalApiResponse> updateMenuCategory(@RequestBody UpdateMenuCategoryRequest updateMenuCategoryRequest) {
+        return successResponse(menuCategoryService.updateMenuCategory(updateMenuCategoryRequest), SystemMessage.MENU_CATEGORY_UPDATED);
     }
 }

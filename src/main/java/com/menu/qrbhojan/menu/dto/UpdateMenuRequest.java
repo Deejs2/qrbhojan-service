@@ -9,7 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuRequest {
+public class UpdateMenuRequest {
+    private Long menuId;
     private String menuName;
     private String description;
     private Double price;
@@ -17,7 +18,7 @@ public class MenuRequest {
     private boolean isSpecial;
     private boolean availabilityStatus;
     private MenuItemStatus menuItemStatus;
-    private Long categoryId;
     private String cafeSpecialId;
     private String tags;
+    private Long categoryId;
 }

@@ -13,5 +13,5 @@ public interface MenuCategoryService {
 
     String deleteMenuCategory(Long id);
 
-    MenuCategoryResponse updateMenuCategory(Long categoryId,UpdateMenuCategoryRequest menuCategoryRequest);
+    MenuCategoryResponse updateMenuCategory(UpdateMenuCategoryRequest updateMenuCategoryRequest);
 }
