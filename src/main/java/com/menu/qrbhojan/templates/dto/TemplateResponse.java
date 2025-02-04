@@ -14,7 +14,6 @@ public class TemplateResponse {
 
     private String description;
 
-    private String defaultStyles;
 
     private String previewImage;
 
@@ -22,7 +21,6 @@ public class TemplateResponse {
         this.id = template.getId();
         this.name = template.getName();
         this.description = template.getDescription();
-        this.defaultStyles = template.getDefaultStyles();
         this.previewImage = template.getPreviewImage();
     }
 }

@@ -6,9 +6,11 @@ import com.menu.qrbhojan.templates.dto.TemplateRequest;
 import com.menu.qrbhojan.templates.message.TemplateMessage;
 import com.menu.qrbhojan.templates.service.TemplateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 
 @RestController
@@ -22,4 +24,13 @@ public class TemplateController extends BaseController {
         return successResponse(templateService.saveTemplate(templateRequest), TemplateMessage.TEMPLATE_SAVED, HttpStatus.CREATED);
     }
 
+    @GetMapping("/getTemplates")
+    public ResponseEntity<GlobalApiResponse> getTemplates(Pageable pageable){
+        return successResponse(templateService.getTemplates(pageable), TemplateMessage.TEMPLATES_FETCHED);
+    }
+
+    @GetMapping("/getTemplate/{id}")
+    public ResponseEntity<GlobalApiResponse> getTemplate(@PathVariable Long id){
+        return successResponse(templateService.getTemplate(id), TemplateMessage.TEMPLATE_FETCHED);
+    }
 }
