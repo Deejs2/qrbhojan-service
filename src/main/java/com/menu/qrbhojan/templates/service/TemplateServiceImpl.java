@@ -25,7 +25,6 @@ public class TemplateServiceImpl implements TemplateService {
     public TemplateResponse saveTemplate(TemplateRequest templateRequest) {
         Template template = new Template();
         template.setName(templateRequest.getName());
-        template.setDefaultStyles(templateRequest.getDefaultStyles());
         template.setDescription(templateRequest.getDescription());
         try {
             template.setPreviewImage(fileHandler.saveMediaFile(templateRequest.getPreviewImage(), "template").getFilePath());
