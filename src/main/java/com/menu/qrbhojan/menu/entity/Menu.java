@@ -15,15 +15,10 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuId;
     private String menuName;
-    private String image;
     private String description;
-    private Double price;
-    private boolean isSpecial;
-    private boolean availabilityStatus;
-    @Enumerated(EnumType.STRING)
-    private MenuItemStatus menuItemStatus;
+    private boolean status;
     private String cafeSpecialId;
-    private String tags;
+
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
