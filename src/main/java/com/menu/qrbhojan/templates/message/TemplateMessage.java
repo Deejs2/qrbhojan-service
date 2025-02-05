@@ -1,6 +1,9 @@
 package com.menu.qrbhojan.templates.message;
 
 public class TemplateMessage {
+
+
+
     private TemplateMessage() {
     }
 
@@ -9,7 +12,7 @@ public class TemplateMessage {
     public static final String TEMPLATE_DELETED = "Template deleted successfully";
     public static final String TEMPLATE_NOT_FOUND = "Template not found";
     public static final String TEMPLATE_ALREADY_EXISTS = "Template already exists";
-
-
+    public static final String TEMPLATES_FETCHED = "Templates fetched successfully";
+    public static final String TEMPLATE_FETCHED = "Template fetched successfully";
 
 }

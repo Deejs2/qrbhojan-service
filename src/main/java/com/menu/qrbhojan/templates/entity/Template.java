@@ -19,9 +19,6 @@ public class Template {
 
     private String description;
 
-    @Column(columnDefinition = "json")
-    private String defaultStyles;
-
     private String previewImage;
 
 }
