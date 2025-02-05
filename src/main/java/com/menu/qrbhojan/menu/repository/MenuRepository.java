@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-    Page<Menu> findMenuByAvailabilityStatusAndCafeSpecialId(Boolean True, String cafeSpecialId, Pageable pageable);
+    Page<Menu> findMenuByCafeSpecialId(String cafeSpecialId, Pageable pageable);
 
-    Menu findByMenuIdAndCafeSpecialIdAndAvailabilityStatus(Long id, String cafeSpecialId, Boolean availabilityStatus);
+    Menu findByMenuIdAndCafeSpecialId(Long id, String cafeSpecialId);
+
+    Page<Menu> findMenuByCafeSpecialIdAndMenuCategoriesCategoryId(String cafeSpecialId, Pageable pageable, Long id);
+
 }

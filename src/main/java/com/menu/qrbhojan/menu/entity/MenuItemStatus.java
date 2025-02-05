@@ -1,7 +1,7 @@
 package com.menu.qrbhojan.menu.entity;
 
 public enum MenuItemStatus {
-    ACTIVE,
-    INACTIVE,
+    DRAFT,
+    PUBLISHED,
     DELETED
 }

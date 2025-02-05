@@ -12,13 +12,15 @@ import java.util.List;
 
 
 public interface MenuService {
-    MenuResponse createMenuCategories(MenuRequest menuRequest) throws IOException;
+    MenuResponse createMenu(MenuRequest menuRequest);
 
-    Page<MenuResponse> getAllMenuCategories(Pageable pageable);
+    Page<MenuResponse> getAllMenu(Pageable pageable);
 
-    String deleteMenuCategory(Long id);
+    String deleteMenu(Long id);
 
     Page<MenuResponse> getMenuByCafeSpecialId(Pageable pageable);
 
-    MenuResponse updateMenu(UpdateMenuRequest updateMenuRequest) throws IOException;
+    MenuResponse updateMenu(UpdateMenuRequest updateMenuRequest);
+
+    Page<MenuResponse> getMenuByCategory(Long categoryId, Pageable pageable);
 }

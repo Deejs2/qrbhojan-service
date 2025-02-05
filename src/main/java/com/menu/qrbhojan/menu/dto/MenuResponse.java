@@ -14,26 +14,16 @@ public class MenuResponse {
     private Long menuId;
     private String menuName;
     private String description;
-    private Double price;
-    private String image;
-    private boolean isSpecial;
-    private boolean availabilityStatus;
-    private MenuItemStatus menuItemStatus;
+    private boolean status;
     private String cafeSpecialId;
-    private String tags;
     private MenuCategoryResponse category;
 
     public MenuResponse(Menu menu) {
         this.menuId = menu.getMenuId();
         this.menuName = menu.getMenuName();
         this.description = menu.getDescription();
-        this.price = menu.getPrice();
-        this.image = menu.getImage();
-        this.isSpecial = menu.isSpecial();
-        this.availabilityStatus = menu.isAvailabilityStatus();
-        this.menuItemStatus = menu.getMenuItemStatus();
+        this.status = menu.isStatus();
         this.cafeSpecialId = menu.getCafeSpecialId();
-        this.tags = menu.getTags();
         this.category = new MenuCategoryResponse(menu.getMenuCategories());
     }
 }
