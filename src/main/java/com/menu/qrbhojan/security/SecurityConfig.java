@@ -33,7 +33,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(JwtRequestFilter jwtRequestFilter, HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/v1/auth/**", "/v1/**").permitAll();
+                    auth.requestMatchers(
+                            "/api/v1/auth/**",
+                            "/v1/**",
+                            "/api/v1/template/getTemplates"
+                    ).permitAll();
                     auth.requestMatchers("/api/v1/**").authenticated();
                 })
                 .authenticationProvider(authenticationProvider())

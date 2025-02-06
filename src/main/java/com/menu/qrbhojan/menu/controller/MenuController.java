@@ -6,7 +6,6 @@ import com.menu.qrbhojan.global.GlobalApiResponse;
 import com.menu.qrbhojan.menu.dto.MenuRequest;
 import com.menu.qrbhojan.menu.dto.UpdateMenuRequest;
 import com.menu.qrbhojan.menu.service.MenuService;
-import com.menu.qrbhojan.menuCategories.dto.request.MenuCategoryRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +20,13 @@ public class MenuController extends BaseController {
     private final MenuService menuService;
 
     @PostMapping("/create")
-    public ResponseEntity<GlobalApiResponse> createMenuCategories(@ModelAttribute MenuRequest menuRequest) throws IOException {
-        return successResponse(menuService.createMenuCategories(menuRequest), SystemMessage.MENU_CREATED);
+    public ResponseEntity<GlobalApiResponse> createMenu(@RequestBody MenuRequest menuRequest){
+        return successResponse(menuService.createMenu(menuRequest), SystemMessage.MENU_CREATED);
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<GlobalApiResponse> getAllMenuCategories(Pageable pageable) {
-        return successResponse(menuService.getAllMenuCategories(pageable), SystemMessage.MENU_FETCHED);
+    public ResponseEntity<GlobalApiResponse> getAllMenu(Pageable pageable) {
+        return successResponse(menuService.getAllMenu(pageable), SystemMessage.MENU_FETCHED);
     }
 
     @GetMapping("/getMenu")
@@ -36,12 +35,17 @@ public class MenuController extends BaseController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GlobalApiResponse> deleteMenuCategory(@PathVariable Long id) {
-        return successResponse(menuService.deleteMenuCategory(id), SystemMessage.MENU_DELETED);
+    public ResponseEntity<GlobalApiResponse> deleteMenu(@PathVariable Long id) {
+        return successResponse(menuService.deleteMenu(id), SystemMessage.MENU_DELETED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<GlobalApiResponse> updateMenu(@ModelAttribute UpdateMenuRequest updateMenuRequest) throws IOException {
+    public ResponseEntity<GlobalApiResponse> updateMenu(@RequestBody UpdateMenuRequest updateMenuRequest){
         return successResponse(menuService.updateMenu(updateMenuRequest), SystemMessage.MENU_UPDATED);
+    }
+
+    @GetMapping("/getMenuByCategory")
+    public ResponseEntity<GlobalApiResponse> getMenuByCategory(@RequestParam Long categoryId, Pageable pageable) {
+        return successResponse(menuService.getMenuByCategory(categoryId, pageable), SystemMessage.MENU_FETCHED);
     }
 }
