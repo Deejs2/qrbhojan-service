@@ -1,5 +1,6 @@
 package com.menu.qrbhojan.menu.service;
 
+import com.menu.qrbhojan.menu.dto.CategoryMenuResponse;
 import com.menu.qrbhojan.menu.dto.MenuRequest;
 import com.menu.qrbhojan.menu.dto.MenuResponse;
 import com.menu.qrbhojan.menu.dto.UpdateMenuRequest;
@@ -22,5 +23,5 @@ public interface MenuService {
 
     MenuResponse updateMenu(UpdateMenuRequest updateMenuRequest);
 
-    Page<MenuResponse> getMenuByCategory(Long categoryId, Pageable pageable);
+    Page<CategoryMenuResponse> getMenuByCategory(Long categoryId, Pageable pageable);
 }

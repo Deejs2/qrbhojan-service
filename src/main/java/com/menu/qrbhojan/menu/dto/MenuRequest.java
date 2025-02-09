@@ -11,7 +11,5 @@ import lombok.NoArgsConstructor;
 public class MenuRequest {
     private String menuName;
     private String description;
-    private boolean status;
     private Long categoryId;
-    private String cafeSpecialId;
 }
