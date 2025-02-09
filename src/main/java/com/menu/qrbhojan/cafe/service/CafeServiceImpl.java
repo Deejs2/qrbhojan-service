@@ -91,4 +91,15 @@ public class CafeServiceImpl implements CafeService {
         Cafe cafe = cafeRepository.findById(cafeId).orElseThrow(() -> new RuntimeException(SystemMessage.CAFE_NOT_FOUND));
         cafeRepository.delete(cafe);
     }
+
+    @Override
+    public CafeResponse getCafeBySpecialId() {
+        log.info("Fetching cafe by special id");
+        Cafe cafe = loggedInUser.getLoggedInCafe();
+        if(cafe!=null) {
+            Users user = userRepository.findById(cafe.getUserId()).orElseThrow(() -> new RuntimeException(SystemMessage.USER_NOT_FOUND));
+            return new CafeResponse(cafe, user);
+        }
+        return null;
+    }
 }
