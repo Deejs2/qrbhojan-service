@@ -1,4 +1,4 @@
-package com.menu.qrbhojan.menu.entity;
+package com.menu.qrbhojan.menu_items.entity;
 
 public enum AvailabilityStatus {
     AVAILABLE,

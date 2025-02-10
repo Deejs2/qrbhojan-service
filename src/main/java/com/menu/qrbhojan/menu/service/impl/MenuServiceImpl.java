@@ -1,12 +1,12 @@
 package com.menu.qrbhojan.menu.service.impl;
 
 
-import com.menu.qrbhojan.menu.dto.MenuRequest;
-import com.menu.qrbhojan.menu.dto.MenuResponse;
-import com.menu.qrbhojan.menu.dto.UpdateMenuRequest;
+import com.menu.qrbhojan.menu.dto.*;
 import com.menu.qrbhojan.menu.entity.Menu;
 import com.menu.qrbhojan.menu.repository.MenuRepository;
 import com.menu.qrbhojan.menu.service.MenuService;
+import com.menu.qrbhojan.menuCategories.dto.response.MenuCategoryResponse;
+import com.menu.qrbhojan.menuCategories.entity.MenuCategories;
 import com.menu.qrbhojan.menuCategories.repository.MenuCategoryRepository;
 import com.menu.qrbhojan.utils.LoggedInUser;
 import jakarta.persistence.EntityNotFoundException;
@@ -80,19 +80,20 @@ public class MenuServiceImpl implements MenuService {
         menu.setDescription(updateMenuRequest.getDescription());
         menu.setMenuCategories(menuCategoryRepository.findById(updateMenuRequest.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("Menu Category not found with Category ID: " + updateMenuRequest.getCategoryId())));
-//        if(updateMenuRequest.getImage() != null) {
-//            menu.setImage(fileHandler.saveMediaFile(updateMenuRequest.getImage(), "menu").getFilePath());
-//        }
         menu.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
         menuRepository.save(menu);
        return new MenuResponse(menu);
     }
 
     @Override
-    public Page<MenuResponse> getMenuByCategory(Long categoryId, Pageable pageable) {
+    public Page<CategoryMenuResponse> getMenuByCategory(Long categoryId, Pageable pageable) {
         log.info("Getting all menu categories by category Id : {}", categoryId);
+        MenuCategories category = menuCategoryRepository.findById(categoryId)
+                .orElseThrow(() -> new EntityNotFoundException("Menu Category not found with Category ID: " + categoryId));
         Page<Menu> menuPage = menuRepository.findMenuByCafeSpecialIdAndMenuCategoriesCategoryId(loggedInUser.getLoggedInCafe().getCafeSpecialId(), pageable, categoryId);
-        List<MenuResponse> menuResponses = menuPage.stream().map(MenuResponse::new).toList();
-        return new PageImpl<>(menuResponses, pageable, menuPage.getTotalElements());
+        List<MenusResponse> menuResponses = menuPage.stream().map(MenusResponse::new).toList();
+        MenuCategoryResponse categoryResponse = new MenuCategoryResponse(category.getCategoryId(), category.getCategoryName(), category.getCategoryDescription(), category.getCafeSpecialId());
+        CategoryMenuResponse categoryMenuResponse = new CategoryMenuResponse(categoryResponse, menuResponses);
+        return new PageImpl<>(List.of(categoryMenuResponse), pageable, menuPage.getTotalElements());
     }
 }
