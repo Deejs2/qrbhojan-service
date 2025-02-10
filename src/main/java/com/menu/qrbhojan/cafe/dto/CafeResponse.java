@@ -1,7 +1,9 @@
 package com.menu.qrbhojan.cafe.dto;
 
 import com.menu.qrbhojan.cafe.entity.Cafe;
+import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.user.entity.Users;
+import com.menu.qrbhojan.utils.ImageResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,10 +27,10 @@ public class CafeResponse {
     public CafeResponse(Cafe cafe, Users user) {
         this.cafeId = cafe.getCafeId();
         this.cafeName = cafe.getCafeName();
-        this.cafeLogo = cafe.getCafeLogo();
+        this.cafeLogo = ImageResponse.setImageUrl(SystemMessage.IMAGE_API_PATH, cafe.getCafeLogo());
         this.cafeLocation = cafe.getCafeLocation();
         this.cafeDescription = cafe.getCafeDescription();
-        this.cafeBanner = cafe.getCafeBanner();
+        this.cafeBanner = ImageResponse.setImageUrl(SystemMessage.IMAGE_API_PATH, cafe.getCafeBanner());
         this.cafeContact = cafe.getCafeContact();
         this.cafeEmail = cafe.getCafeEmail();
         this.cafeSpecialId = cafe.getCafeSpecialId();
