@@ -10,12 +10,13 @@ import com.menu.qrbhojan.constant.SystemMessage;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -41,10 +42,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public List<AnnouncementResponse> getAllAnnouncements(Pageable pageable, AnnouncementType announcementStatus) {
-        List<Announcement> announcements = announcementRepository.findAllByType(pageable, announcementStatus)
-                .orElseThrow(() -> new EntityNotFoundException(SystemMessage.ANNOUNCEMENT_NOT_FOUND));
-        return announcements.stream().map(AnnouncementResponse::new).toList();
+    public Page<AnnouncementResponse> getAllAnnouncements(Pageable pageable) {
+        return announcementRepository.findAll(pageable).map(AnnouncementResponse::new);
     }
 
     @Override
@@ -72,6 +71,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         if (announcementRequest.getImage() != null) {
             announcement.setImageUrl(saveMediaFile(announcementRequest.getImage()));
         }
+        announcement.setCreatedAt(LocalDateTime.now());
         return announcement;
     }
 

@@ -1,7 +1,9 @@
 package com.menu.qrbhojan.user.dto;
 
+import com.menu.qrbhojan.constant.SystemMessage;
 import com.menu.qrbhojan.role.entity.Role;
 import com.menu.qrbhojan.user.entity.Users;
+import com.menu.qrbhojan.utils.ImageResponse;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +28,7 @@ public class UserResponse {
         this.role = user.getRole().stream().map(Role::getName).toList();
         this.address = user.getAddress();
         this.phone = user.getPhone();
-        this.profileImage = user.getProfileImage();
+        this.profileImage = ImageResponse.setImageUrl(SystemMessage.IMAGE_API_PATH, user.getProfileImage());
         this.isActive = user.getIsActive();
     }
 }

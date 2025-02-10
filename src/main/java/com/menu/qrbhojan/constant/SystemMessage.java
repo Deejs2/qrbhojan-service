@@ -4,6 +4,9 @@ public class SystemMessage {
 
     private SystemMessage() {}
 
+    // Image Response API Path
+    public static final String IMAGE_API_PATH = "http://localhost:8080/api/v1/image";
+
     // User Messages
     public static final String USER_NOT_FOUND = "User not found";
     public static final String USER_ALREADY_EXISTS = "User already exists";
@@ -41,6 +44,8 @@ public class SystemMessage {
     public static final String SOCIAL_ICON_LINK_NOT_FOUND = "Social Icon Link not found";
     public static final String SOCIAL_ICON_LINK_CREATED = "Social Icon Link created successfully";
     public static final String SOCIAL_ICON_LINK_DELETED = "Social Icon Link deleted successfully";
+    public static final String SOCIAL_ICON_LINK_UPDATED = "Social Icon Link updated successfully";
+    public static final String SOCIAL_ICON_LINK_FETCHED = "Social Icon Link fetched successfully";
 
     // Cafe Website Messages
     public static final String CAFE_WEBSITE_NOT_FOUND = "Cafe Website not found";

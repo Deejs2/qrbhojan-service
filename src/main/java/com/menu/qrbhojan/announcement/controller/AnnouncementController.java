@@ -29,8 +29,8 @@ public class AnnouncementController extends BaseController {
         return successResponse(announcementService.getAnnouncement(announcementId), SystemMessage.ANNOUNCEMENT_FETCHED);
     }
     @GetMapping("/all")
-    public ResponseEntity<GlobalApiResponse> getAllAnnouncements(Pageable pageable, @RequestParam(defaultValue = "UPDATES") AnnouncementType announcementStatus) {
-        return successResponse(announcementService.getAllAnnouncements(pageable, announcementStatus), SystemMessage.ANNOUNCEMENT_FETCHED);
+    public ResponseEntity<GlobalApiResponse> getAllAnnouncements(Pageable pageable) {
+        return successResponse(announcementService.getAllAnnouncements(pageable), SystemMessage.ANNOUNCEMENT_FETCHED);
     }
     @PutMapping("/{announcementId}")
     public ResponseEntity<GlobalApiResponse> updateAnnouncement(@PathVariable Long announcementId, @ModelAttribute AnnouncementRequest announcementRequest) throws IOException {
