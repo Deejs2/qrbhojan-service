@@ -8,6 +8,10 @@ import com.menu.qrbhojan.menu.service.MenuService;
 import com.menu.qrbhojan.menuCategories.dto.response.MenuCategoryResponse;
 import com.menu.qrbhojan.menuCategories.entity.MenuCategories;
 import com.menu.qrbhojan.menuCategories.repository.MenuCategoryRepository;
+import com.menu.qrbhojan.menu_items.dto.MenuItemResponse;
+import com.menu.qrbhojan.menu_items.dto.MenuItemResponses;
+import com.menu.qrbhojan.menu_items.entity.MenuItem;
+import com.menu.qrbhojan.menu_items.repository.MenuItemRepository;
 import com.menu.qrbhojan.utils.LoggedInUser;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,20 +32,27 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuRepository;
     private final LoggedInUser loggedInUser;
     private final MenuCategoryRepository menuCategoryRepository;
+    private final MenuItemRepository menuItemRepository;
 
 
     @Override
-    public MenuResponse createMenu(MenuRequest menuRequest){
-        log.info("Menu request received");
-        Menu menu = new Menu();
-        menu.setMenuName(menuRequest.getMenuName());
-        menu.setDescription(menuRequest.getDescription());
-        menu.setMenuCategories(menuCategoryRepository.findById(menuRequest.getCategoryId())
-                .orElseThrow(() -> new EntityNotFoundException("Menu Category not found with Category ID: " + menuRequest.getCategoryId())));
-        menu.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
-        menu.setStatus(true);
-        menuRepository.save(menu);
-        return new MenuResponse(menu);
+    public List<MenuResponse> createMenu(MenuRequest menuRequest){
+            log.info("Menu request received for category ID: {}", menuRequest.getCategoryId());
+            MenuCategories menuCategory = menuCategoryRepository.findById(menuRequest.getCategoryId())
+                    .orElseThrow(() -> new EntityNotFoundException("Menu Category not found with Category ID: " + menuRequest.getCategoryId()));
+
+            List<MenuResponse> menuResponses = new ArrayList<>();
+            menuRequest.getMenusRequests().forEach(menusRequest -> {
+                Menu menu = new Menu();
+                menu.setMenuName(menusRequest.getMenuName());
+                menu.setDescription(menusRequest.getDescription());
+                menu.setMenuCategories(menuCategory);
+                menu.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
+                menu.setStatus(true);
+                menuRepository.save(menu);
+                menuResponses.add(new MenuResponse(menu));
+            });
+            return menuResponses;
 
     }
 
@@ -96,4 +108,20 @@ public class MenuServiceImpl implements MenuService {
         CategoryMenuResponse categoryMenuResponse = new CategoryMenuResponse(categoryResponse, menuResponses);
         return new PageImpl<>(List.of(categoryMenuResponse), pageable, menuPage.getTotalElements());
     }
+
+    @Override
+    public Page<CategorySearchResponse> getMenuByCategoryName(String categoryName, Pageable pageable) {
+        log.info("Getting all menus by category name: {} and cafeSpecId: {}", categoryName, loggedInUser.getLoggedInCafe().getCafeSpecialId());
+        String cafeSpecId = loggedInUser.getLoggedInCafe().getCafeSpecialId();
+        MenuCategories category = menuCategoryRepository.findByCategoryNameIgnoreCaseAndCafeSpecialId(categoryName, cafeSpecId)
+                .orElseThrow(() -> new EntityNotFoundException("Menu Category not found with Category Name: " + categoryName));
+        Page<Menu> menuPage = menuRepository.findMenuByCafeSpecialIdAndMenuCategoriesCategoryId(cafeSpecId, pageable, category.getCategoryId());
+        List<CategorySearchResponse> categorySearchResponses = menuPage.stream().map(menu -> {
+            List<MenuItem> menuItems = menuItemRepository.findMenuItemByMenu_MenuId(menu.getMenuId());
+            List<MenuItemResponses> menuItemResponses = menuItems.stream().map(MenuItemResponses::new).toList();
+            return new CategorySearchResponse(new MenusResponse(menu), menuItemResponses);
+        }).toList();
+        return new PageImpl<>(categorySearchResponses, pageable, menuPage.getTotalElements());
+    }
+
 }

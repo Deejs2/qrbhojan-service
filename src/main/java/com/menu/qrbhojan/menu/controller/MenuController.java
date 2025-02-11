@@ -47,4 +47,9 @@ public class MenuController extends BaseController {
     public ResponseEntity<GlobalApiResponse> getMenuByCategory(@RequestParam Long categoryId, Pageable pageable) {
         return successResponse(menuService.getMenuByCategory(categoryId, pageable), SystemMessage.MENU_FETCHED);
     }
+
+    @GetMapping("/getMenuByCategoryName")
+    public ResponseEntity<GlobalApiResponse> getMenuByCategoryName(@RequestParam String categoryName, Pageable pageable) {
+        return successResponse(menuService.getMenuByCategoryName(categoryName, pageable), SystemMessage.MENU_FETCHED);
+    }
 }

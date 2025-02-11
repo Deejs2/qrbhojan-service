@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +26,20 @@ public class MenuCategoryServiceImpl implements MenuCategoryService {
     private final LoggedInUser loggedInUserUtil;
 
     @Override
-    public MenuCategoryResponse createMenuCategories(MenuCategoryRequest menuCategoryRequest) {
-        log.info("Creating menu category with name: {}", menuCategoryRequest.getName());
-        MenuCategories menuCategories = new MenuCategories();
-        menuCategories.setCategoryName(menuCategoryRequest.getName());
-        menuCategories.setCategoryDescription(menuCategoryRequest.getDescription());
-        menuCategories.setCafeSpecialId(loggedInUserUtil.getLoggedInCafe().getCafeSpecialId());
-        MenuCategories savedMenuCategories = menuCategoryRepository.save(menuCategories);
-        log.info("Menu Category saved successfully.");
-        return new MenuCategoryResponse(savedMenuCategories);
+    public List<MenuCategoryResponse> createMenuCategories(List<MenuCategoryRequest> menuCategoryRequest) {
+        log.info("Creating menu category with name");
 
+        List<MenuCategoryResponse> menuCategoryResponses = new ArrayList<>();
+        menuCategoryRequest.forEach(requests ->{
+            MenuCategories menuCategories = new MenuCategories();
+           menuCategories.setCategoryName(requests.getName());
+           menuCategories.setCategoryDescription(requests.getDescription());
+           menuCategories.setCafeSpecialId(loggedInUserUtil.getLoggedInCafe().getCafeSpecialId());
+            MenuCategories savedMenuCategories = menuCategoryRepository.save(menuCategories);
+            menuCategoryResponses.add(new MenuCategoryResponse(savedMenuCategories));
+        });
+        log.info("Menu Category saved successfully.");
+        return menuCategoryResponses;
     }
 
     @Override

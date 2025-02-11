@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/menuCategory")
@@ -18,7 +20,7 @@ public class MenuCategoriesController extends BaseController {
     private final MenuCategoryService menuCategoryService;
 
     @PostMapping("/create")
-    public ResponseEntity<GlobalApiResponse> createMenuCategories(@RequestBody  MenuCategoryRequest menuCategoryRequest) {
+    public ResponseEntity<GlobalApiResponse> createMenuCategories(@RequestBody List<MenuCategoryRequest> menuCategoryRequest) {
         return successResponse(menuCategoryService.createMenuCategories(menuCategoryRequest), SystemMessage.MENU_CATEGORY_CREATED);
     }
 

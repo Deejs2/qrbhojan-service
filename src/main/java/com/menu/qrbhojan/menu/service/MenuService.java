@@ -1,9 +1,6 @@
 package com.menu.qrbhojan.menu.service;
 
-import com.menu.qrbhojan.menu.dto.CategoryMenuResponse;
-import com.menu.qrbhojan.menu.dto.MenuRequest;
-import com.menu.qrbhojan.menu.dto.MenuResponse;
-import com.menu.qrbhojan.menu.dto.UpdateMenuRequest;
+import com.menu.qrbhojan.menu.dto.*;
 import com.menu.qrbhojan.menuCategories.dto.request.MenuCategoryRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +10,7 @@ import java.util.List;
 
 
 public interface MenuService {
-    MenuResponse createMenu(MenuRequest menuRequest);
+    List<MenuResponse> createMenu(MenuRequest menuRequest);
 
     Page<MenuResponse> getAllMenu(Pageable pageable);
 
@@ -24,4 +21,6 @@ public interface MenuService {
     MenuResponse updateMenu(UpdateMenuRequest updateMenuRequest);
 
     Page<CategoryMenuResponse> getMenuByCategory(Long categoryId, Pageable pageable);
+
+    Page<CategorySearchResponse> getMenuByCategoryName(String categoryName, Pageable pageable);
 }
