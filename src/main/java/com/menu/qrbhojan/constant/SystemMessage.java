@@ -71,4 +71,12 @@ public class SystemMessage {
     public static final String GET_ALL_MENU_ITEMS = "Menu Items fetched successfully";
     public static final String UPDATE_MENU_ITEM = "Menu Item updated successfully";
     public static final String DELETE_MENU_ITEM = "Menu Item deleted successfully";
+
+    // Customer Support Messages
+    public static final String SUPPORT_REQUEST_CREATED = "Support request created successfully";
+    public static final String SUPPORT_REQUEST_FETCHED = "Support request fetched successfully";
+    public static final String SUPPORT_REQUEST_UPDATED = "Support request updated successfully";
+    public static final String SUPPORT_REQUEST_DELETED = "Support request deleted successfully";
+    public static final String SUPPORT_REQUEST_STATUS_UPDATED = "Support request status updated successfully";
+    public static final String SUPPORT_REQUEST_NOT_FOUND = "Support request not found";
 }
