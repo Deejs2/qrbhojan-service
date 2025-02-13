@@ -43,4 +43,9 @@ public class CafeController extends BaseController {
         cafeService.deleteCafe(cafeId);
         return successResponse(SystemMessage.CAFE_DELETED);
     }
+
+    @GetMapping("/getCafeDetail")
+    public ResponseEntity<GlobalApiResponse> getCafeBySpecialId() {
+        return successResponse(cafeService.getCafeBySpecialId(), SystemMessage.CAFE_FETCHED);
+    }
 }

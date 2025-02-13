@@ -1,12 +1,13 @@
 package com.menu.qrbhojan.menuCategories.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.menu.qrbhojan.menu.entity.Menu;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -19,4 +20,8 @@ public class MenuCategories {
     private String categoryName;
     private String categoryDescription;
     private String cafeSpecialId;
+
+    @OneToMany(mappedBy = "menuCategories", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Menu> menus;
 }

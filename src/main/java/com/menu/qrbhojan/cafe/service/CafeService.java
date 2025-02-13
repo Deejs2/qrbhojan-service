@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface CafeService {
     CafeResponse createCafe(CafeRequest cafeRequest) throws IOException;
@@ -14,4 +13,5 @@ public interface CafeService {
     Page<CafeResponse> getAllCafes(Pageable pageable);
     CafeResponse updateCafe(Long cafeId, CafeRequest cafeRequest) throws IOException;
     void deleteCafe(Long cafeId);
+    CafeResponse getCafeBySpecialId();
 }
