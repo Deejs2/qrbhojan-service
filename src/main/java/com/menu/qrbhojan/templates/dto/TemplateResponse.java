@@ -14,7 +14,6 @@ public class TemplateResponse {
 
     private String description;
 
-
     private String previewImage;
 
     public TemplateResponse (Template template) {
