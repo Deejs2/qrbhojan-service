@@ -16,7 +16,9 @@ public class TemplateCustomization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "json")
+//    @Column(columnDefinition = "json")
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String customStyles;
 
     @Column(nullable = false)
