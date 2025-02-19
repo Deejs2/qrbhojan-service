@@ -37,7 +37,8 @@ public class SecurityConfig {
                             "/api/v1/auth/**",
                             "/v1/**",
                             "/api/v1/image/**",
-                            "/api/v1/template/getTemplates"
+                            "/api/v1/template/getTemplates",
+                            "api/v1/menuCategory/getAllMenu"
                     ).permitAll();
                     auth.requestMatchers("/api/v1/**").authenticated();
                 })

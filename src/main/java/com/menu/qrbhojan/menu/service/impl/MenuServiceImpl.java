@@ -48,7 +48,6 @@ public class MenuServiceImpl implements MenuService {
                 menu.setDescription(menusRequest.getDescription());
                 menu.setMenuCategories(menuCategory);
                 menu.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
-                menu.setStatus(true);
                 menuRepository.save(menu);
                 menuResponses.add(new MenuResponse(menu));
             });

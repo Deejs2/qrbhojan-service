@@ -21,7 +21,6 @@ public class MenuResponse {
         this.menuId = menu.getMenuId();
         this.menuName = menu.getMenuName();
         this.description = menu.getDescription();
-        this.status = menu.isStatus();
         this.cafeSpecialId = menu.getCafeSpecialId();
         this.category = new MenuCategoryResponse(menu.getMenuCategories());
     }

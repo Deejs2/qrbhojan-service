@@ -71,4 +71,7 @@ public class SystemMessage {
     public static final String GET_ALL_MENU_ITEMS = "Menu Items fetched successfully";
     public static final String UPDATE_MENU_ITEM = "Menu Item updated successfully";
     public static final String DELETE_MENU_ITEM = "Menu Item deleted successfully";
+
+
+    public static final String MENU_FETCHED_FOR_USER = "Menu fetched successfully for user";
 }
