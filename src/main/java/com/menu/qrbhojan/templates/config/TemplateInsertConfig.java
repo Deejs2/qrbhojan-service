@@ -17,9 +17,9 @@ public class TemplateInsertConfig {
     @PostConstruct
     public void insertTemplates() {
         log.info("Inserting templates");
-        createTemplateIfNotExists("theme1", "Template 1 Description", "assets/images/theme1.png");
-        createTemplateIfNotExists("theme2", "Template 2 Description", "assets/images/theme2.png");
-        createTemplateIfNotExists("theme3", "Template 3 Description", "assets/images/theme3.png");
+        createTemplateIfNotExists("Modern", "Clean and minimalist design with focus on visuals", "assets/templates/modern.png");
+        createTemplateIfNotExists("Elegant", "Sophisticated design with classic elements", "assets/templates/elegant.png");
+        createTemplateIfNotExists("Rustic", "Warm and inviting farm-to-table style", "assets/templates/rustic.png");
     }
 
     private void createTemplateIfNotExists(String name, String description, String imagePath) {
