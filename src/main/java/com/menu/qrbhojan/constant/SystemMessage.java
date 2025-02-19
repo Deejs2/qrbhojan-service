@@ -79,4 +79,7 @@ public class SystemMessage {
     public static final String SUPPORT_REQUEST_DELETED = "Support request deleted successfully";
     public static final String SUPPORT_REQUEST_STATUS_UPDATED = "Support request status updated successfully";
     public static final String SUPPORT_REQUEST_NOT_FOUND = "Support request not found";
+
+
+    public static final String MENU_FETCHED_FOR_USER = "Menu fetched successfully for user";
 }

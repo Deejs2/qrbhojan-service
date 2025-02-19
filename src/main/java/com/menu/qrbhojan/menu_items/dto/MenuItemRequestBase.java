@@ -9,7 +9,6 @@ public interface MenuItemRequestBase {
 
     MultipartFile getImage();
     String getTags();
-    Long getMenuId();
     String getMenuItemStatus();
     String getAvailabilityStatus();
     Boolean getIsSpecial();

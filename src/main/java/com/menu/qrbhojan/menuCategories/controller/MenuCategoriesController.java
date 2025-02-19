@@ -38,4 +38,9 @@ public class MenuCategoriesController extends BaseController {
     public ResponseEntity<GlobalApiResponse> updateMenuCategory(@RequestBody UpdateMenuCategoryRequest updateMenuCategoryRequest) {
         return successResponse(menuCategoryService.updateMenuCategory(updateMenuCategoryRequest), SystemMessage.MENU_CATEGORY_UPDATED);
     }
+
+    @GetMapping("/getAllMenu")
+    public ResponseEntity<GlobalApiResponse> getAllMenu(@RequestParam String cafeSpecialId, Pageable pageable) {
+        return successResponse(menuCategoryService.getAllMenu(cafeSpecialId, pageable), SystemMessage.MENU_FETCHED_FOR_USER);
+    }
 }

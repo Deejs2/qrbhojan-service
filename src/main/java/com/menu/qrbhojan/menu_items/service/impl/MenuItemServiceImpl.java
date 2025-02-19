@@ -1,11 +1,13 @@
 package com.menu.qrbhojan.menu_items.service.impl;
 
 import com.menu.qrbhojan.common.service.FileHandler;
+import com.menu.qrbhojan.menu.dto.MenuResponse;
+import com.menu.qrbhojan.menu.entity.Menu;
 import com.menu.qrbhojan.menu.repository.MenuRepository;
-import com.menu.qrbhojan.menu_items.dto.MenuItemRequest;
+import com.menu.qrbhojan.menu_items.dto.request.MenuItemRequest;
 import com.menu.qrbhojan.menu_items.dto.MenuItemRequestBase;
 import com.menu.qrbhojan.menu_items.dto.MenuItemResponse;
-import com.menu.qrbhojan.menu_items.dto.UpdateMenuItemRequest;
+import com.menu.qrbhojan.menu_items.dto.request.UpdateMenuItemRequest;
 import com.menu.qrbhojan.menu_items.entity.AvailabilityStatus;
 import com.menu.qrbhojan.menu_items.entity.MenuItem;
 import com.menu.qrbhojan.menu_items.entity.MenuItemStatus;
@@ -20,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -42,19 +45,30 @@ public class MenuItemServiceImpl implements MenuItemService {
             menuItem.setImage(fileHandler.saveMediaFile(menuItemRequest.getImage(), "menuItem").getFilePath());
         }
         menuItem.setIsSpecial(menuItemRequest.getIsSpecial());
-        menuItem.setMenu(menuRepository.findById(menuItemRequest.getMenuId())
-                .orElseThrow(() -> new RuntimeException("Menu not found with the Id :" + menuItemRequest.getMenuId())));
+//        menuItem.setMenu(menuRepository.findById(menuItemRequest.getMenuId())
+//                .orElseThrow(() -> new RuntimeException("Menu not found with the Id :" + menuItemRequest.getMenuId())));
     }
 
     @Override
-    public MenuItemResponse saveMenuItem(MenuItemRequest menuItemRequest) throws IOException {
+    public List<MenuItemResponse> saveMenuItem(MenuItemRequest menuItemRequest) throws IOException {
         log.info("MenuItem save request received");
-        MenuItem menuItem = new MenuItem();
-        menuItem.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
-        mapRequestToMenuItem(menuItem, menuItemRequest);
-        MenuItem savedMenuItem = menuItemRepository.save(menuItem);
-        log.info("MenuItem saved successfully.");
-        return new MenuItemResponse(savedMenuItem);
+        Menu menu = menuRepository.findById(menuItemRequest.getMenuId())
+                .orElseThrow(() -> new RuntimeException("Menu not found with the Id :" + menuItemRequest.getMenuId()));
+
+        List<MenuItemResponse> menuItemResponses = new ArrayList<>();
+        menuItemRequest.getMenuItemRequests().forEach(menusRequest -> {
+            MenuItem menuItem = new MenuItem();
+            menuItem.setMenu(menu);
+            menuItem.setCafeSpecialId(loggedInUser.getLoggedInCafe().getCafeSpecialId());
+            try {
+                mapRequestToMenuItem(menuItem, menusRequest);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            MenuItem savedMenuItem = menuItemRepository.save(menuItem);
+            menuItemResponses.add(new MenuItemResponse(savedMenuItem));
+        });
+        return menuItemResponses;
     }
 
     @Override

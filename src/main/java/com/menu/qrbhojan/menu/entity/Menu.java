@@ -20,7 +20,6 @@ public class Menu {
     private Long menuId;
     private String menuName;
     private String description;
-    private boolean status;
     private String cafeSpecialId;
 
 

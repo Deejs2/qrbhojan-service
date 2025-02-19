@@ -1,5 +1,6 @@
-package com.menu.qrbhojan.menu_items.dto;
+package com.menu.qrbhojan.menu_items.dto.request;
 
+import com.menu.qrbhojan.menu_items.dto.MenuItemRequestBase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
